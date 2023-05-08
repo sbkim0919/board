@@ -9,17 +9,14 @@ import javax.persistence.Id;
 
 @Entity
 @Data
-public class Board {
+public class Manage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
-    private String title;
+    private Long comSeq;
+    private Long productSeq;
 
-    private String content;
 
-    private String fileName;
-
-    private String filePath;
 }
