@@ -37,6 +37,40 @@
       <strong th:if="${page == nowPage}" th:text="${page}" style="color: red"></strong>
     </th:block>
 
+    <!-- paging 추가 -->
+    <div role="navigation" aria-label="페이지 선택" class="page-navigator" th:if="${list.totalElements != 0}">
+
+      <button type="button" class="btn-pgn-first"
+              th:disabled="${!list.hasPrevious}"
+              th:onclick="'location.href=\''+ @{|?page=${0}|} +'\''"> <!-- 맨 처음 페이지 -->
+        <span class="blind">맨 처음 페이지</span>
+      </button>
+
+      <button type="button" class="btn-pgn-prev"
+              th:disabled="${!list.hasPrevious}"
+              th:onclick="'location.href=\''+ @{|?page=${list.number-1}|} +'\''"> <!-- 이전 페이지 -->
+        <span class="blind">이전 페이지</span>
+      </button>
+
+      <button th:each="pageNav: ${#numbers.sequence(0, list.getTotalPages() - 1)}"
+
+              th:classappend="${pageNav == list.number} ? 'btn-pgn-active'" th:disabled="${pageNav == list.number}" type="button" th:id="${pageNav}" th:onclick="'location.href=\''+ @{|?page=${pageNav}|} +'\''">
+        <em th:text="${pageNav+1}"></em>
+      </button>
+
+      <button type="button" class="btn-pgn-next"
+              th:disabled="${!list.hasNext}"
+              th:onclick="'location.href=\''+ @{|?page=${list.number+1}|}+'\''"> <!-- 다음 페이지 -->
+        <span class="blind">다음 페이지</span>
+      </button>
+      <button type="button" class="btn-pgn-last"
+              th:disabled="${!list.hasNext}"
+              th:onclick="'location.href=\''+ @{|?page=${list.totalPages-1}|}+'\''"> <!-- 맨 마지막 페이지 -->
+        <span class="blind">맨 마지막 페이지</span>
+      </button>
+    </div>
+    <!-- paging 추가 -->
+
     <form th:action="@{/board/list}" method="get">
       <input type="text" name="searchKeyword">
       <button type="submit">검색</button>

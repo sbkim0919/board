@@ -2,10 +2,7 @@ package com.sbkim.board.entity;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -17,6 +14,8 @@ public class Board {
 
     private String title;
 
+    @Lob
+    @Column(name = "\"content\"", columnDefinition = "TEXT")
     private String content;
 
     private String fileName;
